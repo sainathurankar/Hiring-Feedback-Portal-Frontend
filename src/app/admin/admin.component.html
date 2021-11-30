@@ -1,0 +1,172 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap 5 Simple Admin Dashboard</title>
+    insert stylesheets here
+</head>
+<body> -->
+<!-- <h1>Hello world!</h1> -->
+<!-- insert scripts here -->
+
+<nav class="navbar navbar-light bg-light p-3">
+
+  <div class="d-flex col-12 col-md-3 col-lg-2 mb-2 mb-lg-0 flex-wrap flex-md-nowrap justify-content-between">
+    <img id="logo"
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Clarivate_Logo.png/1200px-Clarivate_Logo.png">
+    <h3 class="navbar-brand mt-3 ml-3">ADMIN DASHBOARD</h3>
+
+    <button class="navbar-toggler d-md-none collapsed mb-3" type="button" data-toggle="collapse" data-target="#sidebar"
+      aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+
+  <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+        aria-expanded="false">
+        Hello, {{firstname}}
+      </button>
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <!-- <li><a class="dropdown-item" routerLink="profile" routerLinkActive="active">View Profile</a></li> -->
+        <li><a class="dropdown-item" (click)="signout()">Sign out</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <!-- sidebar content goes in here -->
+      <div class="position-sticky pt-md-5">
+        <ul class="nav flex-column">
+          <li *ngIf="role == 'ROLE_SUPERADMIN'" class="nav-item">
+
+            <a class="nav-link" style="cursor: pointer;" aria-current="page" data-toggle="modal"
+              data-target="#exampleModal2">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-home">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              <span class="ml-2">Add Admin</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" routerLink="users" routerLinkActive="active">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-users">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span class="ml-2">View Users</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="candidateList" routerLinkActive="active">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-users">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span class="ml-2">View Candidates</span>
+            </a>
+          </li>
+
+
+        </ul>
+      </div>
+
+    </nav>
+    <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4 py-4">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="colleges" routerLinkActive="active">Colleges</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="weightage" routerLinkActive="active">Weightage</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="selectedCandidates" routerLinkActive="active">Selected Candidates</a>
+        </li>
+
+      </ul>
+      <router-outlet></router-outlet>
+      <!-- <app-selected-candidates></app-selected-candidates> -->
+      <!-- <app-colleges></app-colleges> -->
+    </main>
+  </div>
+</div>
+
+
+
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Admin</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form autocomplete="off">
+
+          <div class="form-group">
+            <label for="value">Username</label>
+            <input type="text" id="value" class="form-control" [(ngModel)]='username'
+              [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="form-group">
+            <label for="value">First Name</label>
+            <input type="text" id="value" class="form-control" [(ngModel)]='userFirstName'
+              [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="form-group">
+            <label for="value">Last Name</label>
+            <input type="text" id="value" class="form-control" [(ngModel)]='userLastName'
+              [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="form-group">
+            <label for="value">Email</label>
+            <input type="text" id="value" class="form-control" [(ngModel)]='email'
+              [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="form-group">
+            <label for="value">Password</label>
+            <input type="password" id="value" class="form-control" [(ngModel)]='password'
+              [ngModelOptions]="{standalone: true}">
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addAdminSaveClicked()" data-dismiss="modal">Save
+          changes</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+<!-- </body>
+</html> -->

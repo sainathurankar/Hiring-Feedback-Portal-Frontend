@@ -1,0 +1,115 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <!-- Name Column -->
+    <ng-container matColumnDef="Question">
+      <th mat-header-cell *matHeaderCellDef> QUESTION </th>
+      <td mat-cell *matCellDef="let element"> {{element.feedBackQuestion}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Weightage">
+      <th mat-header-cell *matHeaderCellDef> WEIGHTAGE </th>
+      <td id="weightageData" mat-cell *matCellDef="let element"> {{element.weightage}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Update">
+        <th mat-header-cell *matHeaderCellDef> UPDATE </th>
+        <td mat-cell *matCellDef="let element"><i (click)="updateClicked(element.id, element.feedBackQuestion, element.weightage)"   data-toggle="modal" data-target="#exampleModal" style="cursor: pointer;" class="fas fa-marker ml-3"></i> </td>
+      </ng-container>
+
+      
+    
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Update weightage</h5>
+          
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form >
+                <div class="form-group">
+                  <label for="question">FeedBack Question</label>
+                  <input type="text" class="form-control" id="question" aria-describedby="emailHelp"  [value]='feedBackQuestion' [(ngModel)]='feedBackQuestion' [ngModelOptions]="{standalone: true}" disabled>
+                  
+                </div>
+                <div class="form-group">
+                  <label for="weightage">Weightage</label>
+                  <select id="weightage" class="form-select" aria-label="Default select example" [value]='weightage' [(ngModel)]='weightage' [ngModelOptions]="{standalone: true}">
+              <option selected>Open this select menu</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+                  <!-- <input min=1 max=10 type="number" id="weightage" class="form-control"  [value]='weightage' [(ngModel)]='weightage' [ngModelOptions]="{standalone: true}"> -->
+                </div>
+               
+               
+              </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateWeightage()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  
+  
+  <button type="button" id="updatebtn" class="btn btn-primary" data-toggle="modal"
+    data-target="#exampleModal1">UPDATE THRESHOLD</button>
+    <h5 id="thresh">Current Threshold Score : {{thresholdValue}}</h5>
+
+
+
+    <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Threshold Score</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+              
+            <div class="form-group">
+              <label for="value">Threshold Value</label>
+              <input type="number" id="value" class="form-control" [(ngModel)]='thresholdValue'
+                [value]='thresholdValue' [ngModelOptions]="{standalone: true}">
+            </div>
+  
+  
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="close()">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateThreshold()">Save
+            changes</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+    
+
+    

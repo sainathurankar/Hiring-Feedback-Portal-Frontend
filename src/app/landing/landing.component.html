@@ -1,0 +1,175 @@
+<!-- <section class="h-100 gradient-form" style="background-color: #eee;"> -->
+<div class="container-fluid py-2 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-xl-12">
+            <div class="card rounded-3 text-black">
+                <div class="row g-0">
+                    <div class="col-lg-6">
+                        <div class="card-body p-md-5 mx-md-4">
+
+                            <div class="text-center">
+                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Clarivate_Logo.png/1200px-Clarivate_Logo.png"
+                                    style="width: 185px;" alt="logo">
+                                <h4 class="mt-1 mb-5 pb-1">HIRING FEEDBACK PORTAL</h4>
+                            </div>
+
+                            <div class="d-flex justify-content-center ">
+                                <form *ngIf="!isLoggedIn && login_signup" name="form"
+                                    (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate class="w-50">
+                                    <p>Please login to your account</p>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form2Example11">Username</label>
+                                        <input type="text" class="form-control" name="username"
+                                            [(ngModel)]="form.username" required #username="ngModel" type="text"
+                                            id="form2Example11" placeholder="Username" />
+
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <label class="form-label" for="form2Example22">Password</label>
+                                        <input type="password" placeholder="Password" id="form2Example22"
+                                            class="form-control" type="password" name="password"
+                                            [(ngModel)]="form.password" required minlength="6" #password="ngModel" />
+
+                                    </div>
+                                    <div class="alert alert-danger" role="alert" *ngIf="password.errors && f.submitted">
+                                        <div *ngIf="password.errors.required">Password is required</div>
+                                        <div *ngIf="password.errors.minlength">
+                                            Password must be at least 6 characters
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group text-center pt-1 mb-5 pb-1">
+                                        <button id="login-btn" class="btn btn-primary btn-block mb-3" type="submit">Log
+                                            in</button>
+                                        <!-- <a class="text-muted" href="#!">Forgot password?</a> -->
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="alert alert-danger" role="alert"
+                                            *ngIf="f.submitted && isLoginFailed">
+                                            Login failed: {{ errorMessage }}
+                                        </div>
+                                    </div>
+                                    <div class="d-flex align-items-center justify-content-center pb-4">
+                                        <p class="mb-0 me-2">Don't have an account?</p>
+                                        <button type="button" (click)="toggle_form()"
+                                            class="btn btn-outline-danger">Create new</button>
+                                    </div>
+
+                                </form>
+
+                                <!-- <form  name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate class="w-50"> -->
+                                <div *ngIf="!isLoggedIn && !login_signup" class="signup-form">
+                                    <form *ngIf="!isSuccessful" name="form_signup"
+                                        (ngSubmit)="f_signup.form.valid && onSubmit_signup()" id="f_signup" #f_signup="ngForm"
+                                        novalidate>
+                                        <h4>Register</h4>
+                                        <!-- <p class="hint-text">Create your account. It's free and only takes a minute.</p> -->
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col"><input type="text" class="form-control"
+                                                        name="first_name" placeholder="First Name" required [(ngModel)]="form_signup.firstname"
+                                                 #firstname="ngModel">
+                                                <div class="alert-danger" *ngIf="firstname.errors && f_signup.submitted">
+                                                    <div *ngIf="firstname.errors.required">Required</div>
+                                                </div>
+                                                </div>
+                                                <div class="col"><input type="text" class="form-control"
+                                                        name="last_name" placeholder="Last Name" required [(ngModel)]="form_signup.lastname"
+                                             #lastname="ngModel">
+                                            <div class="alert-danger" *ngIf="lastname.errors && f_signup.submitted">
+                                                <div *ngIf="lastname.errors.required">Required</div>
+                                            </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="username"
+                                                placeholder="Username" required [(ngModel)]="form_signup.username"
+                                                minlength="3" maxlength="20" #username="ngModel">
+                                        
+                                        <div class="alert-danger" *ngIf="username.errors && f_signup.submitted">
+                                            <div *ngIf="username.errors.required">Username is required</div>
+                                            <div *ngIf="username.errors.minlength">
+                                                Username must be at least 3 characters
+                                            </div>
+                                            <div *ngIf="username.errors.maxlength">
+                                                Username must be at most 20 characters
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <input type="email" class="form-control" name="email" placeholder="Email"
+                                                [(ngModel)]="form_signup.email" required email #email="ngModel">
+                                            <div class="alert-danger" *ngIf="email.errors && f_signup.submitted">
+                                                <div *ngIf="email.errors.required">Email is required</div>
+                                                <div *ngIf="email.errors.email">
+                                                    Email must be a valid email address
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" name="password"
+                                                placeholder="Password" [(ngModel)]="form_signup.password" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,20}$"
+                                                required password minlength="6" #password="ngModel">
+
+                                            <div class="alert-danger" *ngIf="password.errors && f_signup.submitted">
+                                                <div *ngIf="password.errors.required">Password is required</div>
+                                                <div *ngIf="password.errors.pattern">
+                                                    Must contain at least one number and one uppercase and lowercase letter, and at least 6 or more characters
+                                                </div>
+                                            
+                                            </div>
+
+                                        
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" name="confirm_password"
+                                            required minlength="6"  placeholder="Confirm Password" required="required" [(ngModel)]="confirm_password">
+                                            <div class="alert-danger text-center mt-3" *ngIf="form_signup.password!=confirm_password && f_signup.submitted">
+                                                Passwords do not match 
+                                            </div>
+                                        </div>
+
+                                       
+                                        <!-- <div class="form-group">
+                                                <label class="form-check-label"><input type="checkbox" required="required"> I accept the <a href="#">Terms
+                                                        of Use</a> &amp; <a href="#">Privacy Policy</a></label>
+                                            </div> -->
+                                        <div class="form-group text-center">
+                                            <button type="submit" class="btn btn-success" >Sign Up</button>
+                                        </div>
+                                    </form>
+                                    <div class="text-center">Already have an account? <a (click)="toggle_form()"
+                                            style="color: rgb(102, 7, 255); cursor: pointer;">Sign in</a></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 d-flex align-bottom" id="right-side">
+                        <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                            <h3 class="mb-4">What is an Hiring Feedback Portal?</h3>
+                            <p class="small mb-0">Hiring feedback forms are used to standardize the way in which a
+                                hiring team evaluates a candidate. Interview feedback helps keep interviewers objective,
+                                and provides them with guidelines on what are important aspects of said role that need
+                                to be evaluated. Lastly, interview feedback forms allow for faster documentation, easier
+                                training of hiring managers, and reduced unconscious bias in the hiring process.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+<!-- </section> -->

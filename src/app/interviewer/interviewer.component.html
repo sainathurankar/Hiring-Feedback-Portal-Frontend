@@ -1,0 +1,598 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <img id="logo1"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Clarivate_Logo.png/1200px-Clarivate_Logo.png">
+    <a class="navbar-brand" href="#">INTERVIEWER DASHBOARD</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="col-12 col-md-5 col-lg-8 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                data-toggle="dropdown" aria-expanded="false">
+                Hello, {{interviewerName}} </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <!-- <li><a class="dropdown-item" routerLink="profile" routerLinkActive="active">View Profile</a></li> -->
+                <li><a class="dropdown-item" (click)="signout()">Sign out</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+
+
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-11 col-sm-9 col-md-7 col-lg-6 col-xl-5 text-center p-0 mt-3 mb-2">
+            <div class="card px-0 pt-1 pb-0 mt-1 mb-3">
+                <h2 id="heading">Candidate Feedback Form</h2>
+                <!-- <p>Fill all form field to go to next step</p> -->
+                <form id="msform">
+                    <!-- progressbar -->
+                    <ul id="progressbar">
+                        <li class="active" id="account"><strong>Basic Info</strong></li>
+                        <li id="personal"><strong>Feedback Questions</strong></li>
+                        <li id="payment"><strong>Review</strong></li>
+                        <li id="confirm"><strong>Submit</strong></li>
+                    </ul>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div> <br> <!-- fieldsets -->
+                    <fieldset id="basic">
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Basic Information:</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Step 1 - 4</h2>
+                                </div>
+                            </div>
+                            <!--  <label class="fieldlabels">Email: *</label> <input type="email" name="email"
+                                placeholder="Email Id" /> <label class="fieldlabels">Username: *</label> <input
+                                type="text" name="uname" placeholder="UserName" /> <label class="fieldlabels">Password:
+                                *</label> <input type="password" name="pwd" placeholder="Password" /> <label
+                                class="fieldlabels">Confirm Password: *</label> <input type="password" name="cpwd"
+                                placeholder="Confirm Password" /> -->
+                            <form [formGroup]="exform">
+                                <div class="form-group">
+                                    <label class="col-form-label">Name</label>
+                                    <input formControlName="name" type="text" class="form-control">
+                                    <small *ngIf="exform.controls.name.invalid && exform.controls.name.touched"
+                                        class="text-danger">Name is
+                                        Required</small>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Email</label>
+                                    <input formControlName="email" type="text" class="form-control">
+                                    <small *ngIf="exform.controls.email.invalid && exform.controls.email.touched"
+                                        class="text-danger">Email is
+                                        Required</small>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">College Name</label><br>
+                                    <!-- <input formControlName="collegename" type="text" class="form-control" > -->
+                                    <input id="collegeSelect" type="text" matInput [formControl]="myControl"
+                                        [matAutocomplete]="auto" (mouseover)="option()">
+                                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+
+                                            {{option.collegeName}}
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                    <!-- <small *ngIf="exform.controls.collegename.invalid && exform.controls.collegename.touched" class="text-danger">College Name is Required</small> -->
+                                </div>
+                                <div *ngIf="tier" class="form-group">
+                                    <p class="mt-3">College Tier: {{tier}}</p>
+                                    <!-- <label class="col-form-label">College Tier </label> -->
+                                    <!-- <input  type="text" formControlName="CollegeTier" class="form-control" [value]="tier" (click)="option()" > -->
+                                    <!-- <small *ngIf="exform.controls.CollegeTier.invalid && exform.controls.CollegeTier.touched" class="text-danger"></small>  -->
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Interview Date</label>
+                                    <input type="date" formControlName="InterviewDate" class="form-control">
+                                    <small
+                                        *ngIf="exform.controls.InterviewDate.invalid && exform.controls.InterviewDate.touched"
+                                        class="text-danger"> Interview Date is Required</small>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Interviewer Name</label>
+                                    <input type="text" formControlName="InterviewerName" class="form-control">
+                                    <small
+                                        *ngIf="exform.controls.InterviewerName.invalid && exform.controls.InterviewerName.touched"
+                                        class="text-danger"> Interviewer Name is Required</small>
+                                </div>
+                                <!-- <button (click)="toggles()"  type="button" class="btn btn-primary mt-3">Next</button> -->
+                                <!-- <button (click)="toggles()" [disabled]="exform.invalid" type="button"
+                                    class="btn btn-primary mt-3">Next</button> -->
+                            </form>
+
+</div>
+
+
+                         <button  id="next" [disabled]="exform.invalid" (click)="nextq($event)"  name="next"  class="next action-button" value="Next" >Next
+                </button>
+                        </fieldset>
+                    <fieldset id="rating">
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Feedback Information:</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Step 2 - 4</h2>
+                                </div>
+                            </div>
+                            <!--  <label class="fieldlabels">First Name: *</label> <input type="text" name="fname"
+                                placeholder="First Name" /> <label class="fieldlabels">Last Name: *</label> <input
+                                type="text" name="lname" placeholder="Last Name" /> <label class="fieldlabels">Contact
+                                No.: *</label> <input type="text" name="phno" placeholder="Contact No." /> <label
+                                class="fieldlabels">Alternate Contact No.: *</label> <input type="text" name="phno_2"
+                                placeholder="Alternate Contact No." /> -->
+
+
+                            <form [formGroup]="exform1">
+                                <div class="form-group">
+                                    <label class="col-form-label">Hackerrank Score</label>
+                                    <input id="name" formControlName="HackerrankScore" type="number"
+                                        class="form-control">
+                                    <small
+                                        *ngIf="exform1.controls.HackerrankScore.invalid && exform1.controls.HackerrankScore.touched"
+                                        class="text-danger">Hackerrank Score is Required</small>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Education And Training </label><br>
+                                    <!-- <input formControlName="EducationAndTraining"  class="form-control" > -->
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="EducationAndTraining" name="EducationAndTraining"
+                                            id="inlineRadio1" value="1">
+                                        <label class="form-check-label" for="inlineRadio1">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="EducationAndTraining" name="EducationAndTraining"
+                                            id="inlineRadio2" value="2">
+                                        <label class="form-check-label" for="inlineRadio2">2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="EducationAndTraining" name="EducationAndTraining"
+                                            id="inlineRadio3" value="3">
+                                        <label class="form-check-label" for="inlineRadio3">3 </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="EducationAndTraining" name="EducationAndTraining"
+                                            id="inlineRadio4" value="4">
+                                        <label class="form-check-label" for="inlineRadio3">4 </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="EducationAndTraining" name="EducationAndTraining"
+                                            id="inlineRadio5" value="5">
+                                        <label class="form-check-label" for="inlineRadio3">5 </label>
+                                    </div>
+
+                                    <small
+                                        *ngIf="exform1.controls.EducationAndTraining.invalid && exform1.controls.EducationAndTraining.touched"
+                                        class="text-danger">This is Required</small>
+                                </div>
+
+
+
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Programming Knowledge</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="ProgrammingKnowledge" name="ProgrammingKnowledge"
+                                            id="inlineRadio1" value="1">
+                                        <label class="form-check-label" for="inlineRadio1">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="ProgrammingKnowledge" name="ProgrammingKnowledge"
+                                            id="inlineRadio2" value="2">
+                                        <label class="form-check-label" for="inlineRadio2">2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="ProgrammingKnowledge" name="ProgrammingKnowledge"
+                                            id="inlineRadio3" value="3">
+                                        <label class="form-check-label" for="inlineRadio3">3 </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="ProgrammingKnowledge" name="ProgrammingKnowledge"
+                                            id="inlineRadio4" value="4">
+                                        <label class="form-check-label" for="inlineRadio3">4 </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="ProgrammingKnowledge" name="ProgrammingKnowledge"
+                                            id="inlineRadio5" value="5">
+                                        <label class="form-check-label" for="inlineRadio3">5 </label>
+                                    </div>
+
+                                    <small
+                                        *ngIf="exform1.controls.ProgrammingKnowledge.invalid && exform1.controls.ProgrammingKnowledge.touched"
+                                        class="text-danger">This is Required</small>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Adaptability And Flexibility</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="AdaptabilityAndFlexibility"
+                                            name="AdaptabilityAndFlexibility" id="inlineRadio1" value="1">
+                                        <label class="form-check-label" for="inlineRadio1">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="AdaptabilityAndFlexibility"
+                                            name="AdaptabilityAndFlexibility" id="inlineRadio2" value="2">
+                                        <label class="form-check-label" for="inlineRadio2">2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="AdaptabilityAndFlexibility"
+                                            name="AdaptabilityAndFlexibility" id="inlineRadio3" value="3">
+                                        <label class="form-check-label" for="inlineRadio3">3 </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="AdaptabilityAndFlexibility"
+                                            name="AdaptabilityAndFlexibility" id="inlineRadio4" value="4">
+                                        <label class="form-check-label" for="inlineRadio3">4 </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="AdaptabilityAndFlexibility"
+                                            name="AdaptabilityAndFlexibility" id="inlineRadio5" value="5">
+                                        <label class="form-check-label" for="inlineRadio3">5 </label>
+                                    </div>
+                                    <small
+                                        *ngIf="exform1.controls.AdaptabilityAndFlexibility.invalid && exform1.controls.AdaptabilityAndFlexibility.touched"
+                                        class="text-danger"> This is Required</small>
+                                </div>
+
+
+
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Problem Solving</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="ProblemSolving"
+                                            name="ProblemSolving" id="inlineRadio1" value="1">
+                                        <label class="form-check-label" for="inlineRadio1">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="ProblemSolving"
+                                            name="ProblemSolving" id="inlineRadio2" value="2">
+                                        <label class="form-check-label" for="inlineRadio2">2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="ProblemSolving"
+                                            name="ProblemSolving" id="inlineRadio3" value="3">
+                                        <label class="form-check-label" for="inlineRadio3">3 </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="ProblemSolving"
+                                            name="ProblemSolving" id="inlineRadio4" value="4">
+                                        <label class="form-check-label" for="inlineRadio3">4 </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="ProblemSolving"
+                                            name="ProblemSolving" id="inlineRadio5" value="5">
+                                        <label class="form-check-label" for="inlineRadio3">5 </label>
+                                    </div>
+                                    <small
+                                        *ngIf="exform1.controls.ProblemSolving.invalid && exform1.controls.ProblemSolving.touched"
+                                        class="text-danger"> This is Required</small>
+                                </div>
+
+
+
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Logical Reasoning</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="LogicalReasoning"
+                                            name="LogicalReasoning" id="inlineRadio1" value="1">
+                                        <label class="form-check-label" for="inlineRadio1">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="LogicalReasoning"
+                                            name="LogicalReasoning" id="inlineRadio2" value="2">
+                                        <label class="form-check-label" for="inlineRadio2">2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="LogicalReasoning"
+                                            name="LogicalReasoning" id="inlineRadio3" value="3">
+                                        <label class="form-check-label" for="inlineRadio3">3 </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="LogicalReasoning"
+                                            name="LogicalReasoning" id="inlineRadio4" value="4">
+                                        <label class="form-check-label" for="inlineRadio3">4 </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="LogicalReasoning"
+                                            name="LogicalReasoning" id="inlineRadio5" value="5">
+                                        <label class="form-check-label" for="inlineRadio3">5 </label>
+                                    </div>
+                                    <small
+                                        *ngIf="exform1.controls.LogicalReasoning.invalid && exform1.controls.LogicalReasoning.touched"
+                                        class="text-danger">
+                                        This is Required</small>
+                                </div>
+
+
+
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Interpersonal And Communication Skills</label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="InterpersonalAndCommunicationSkills"
+                                            name="InterpersonalAndCommunicationSkills" id="inlineRadio1" value="1">
+                                        <label class="form-check-label" for="inlineRadio1">1</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="InterpersonalAndCommunicationSkills"
+                                            name="InterpersonalAndCommunicationSkills" id="inlineRadio2" value="2">
+                                        <label class="form-check-label" for="inlineRadio2">2</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="InterpersonalAndCommunicationSkills"
+                                            name="InterpersonalAndCommunicationSkills" id="inlineRadio3" value="3">
+                                        <label class="form-check-label" for="inlineRadio3">3 </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="InterpersonalAndCommunicationSkills"
+                                            name="InterpersonalAndCommunicationSkills" id="inlineRadio4" value="4">
+                                        <label class="form-check-label" for="inlineRadio3">4 </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio"
+                                            formControlName="InterpersonalAndCommunicationSkills"
+                                            name="InterpersonalAndCommunicationSkills" id="inlineRadio5" value="5">
+                                        <label class="form-check-label" for="inlineRadio3">5 </label>
+                                    </div>
+                                    <small
+                                        *ngIf="exform1.controls.InterpersonalAndCommunicationSkills.invalid && exform1.controls.InterpersonalAndCommunicationSkills.touched"
+                                        class="text-danger">
+                                        This is Required</small>
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Recommend to Hire </label><br>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="RecommendToHire"
+                                            name="RecommendToHire" id="inlineRadio1" value="Exceptional Candidate">
+                                        <label class="form-check-label" for="inlineRadio1">Exceptional Candidate</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="RecommendToHire"
+                                            name="RecommendToHire" id="inlineRadio2" value="HIRE">
+                                        <label class="form-check-label" for="inlineRadio2">Hire</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="RecommendToHire"
+                                            name="RecommendToHire" id="inlineRadio3" value="Do not Hire">
+                                        <label class="form-check-label" for="inlineRadio3">Do not Hire </label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" formControlName="RecommendToHire"
+                                            name="RecommendToHire" id="inlineRadio4"
+                                            value="Additional Interviews Required">
+                                        <label class="form-check-label" for="inlineRadio3">Additional Interviews
+                                            Required </label>
+                                    </div>
+
+                                    <small
+                                        *ngIf="exform1.controls.RecommendToHire.invalid && exform1.controls.RecommendToHire.touched"
+                                        class="text-danger">
+                                        This is Required</small>
+
+                                </div>
+
+
+
+                                <div class="form-group">
+                                    <label class="col-form-label">Additional Comments</label>
+                                    <textarea formControlName="AdditionalComments" name="AdditionalComments" type="text"
+                                        class="form-control"></textarea>
+                                    <small
+                                        *ngIf="exform1.controls.AdditionalComments.invalid && exform1.controls.AdditionalComments.touched"
+                                        class="text-danger">This is Required</small>
+                                </div>
+
+
+
+                                <!-- <button (click)="toggles()" type="button"
+                                    class="btn btn-primary mr-2 mt-3">Back</button>
+                                <button (click)="clicksub()" [disabled]="exform1.invalid" type="button"
+                                    class="btn btn-primary mt-3">Review</button> -->
+
+                            </form>
+
+
+
+<!-- [disabled]="exform1.invalid" -->
+
+                        </div> <input type="button" name="next" [disabled]="exform1.invalid"  class="next action-button" (click)="nextq($event)" value="Review" /> <input
+                            type="button" name="previous" class="previous action-button-previous" (click)="back($event)" value="Previous" />
+                    </fieldset>
+                    <fieldset id="review">
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Review</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Step 3 - 4</h2>
+                                </div>
+                            </div>
+                            <!--  <label class="fieldlabels">Upload Your Photo:</label> <input type="file" name="pic"
+                                accept="image/*"> <label class="fieldlabels">Upload Signature Photo:</label> <input
+                                type="file" name="pic" accept="image/*"> -->
+
+                            <!-- <div class="card">
+                              
+                                <div class="card-body">
+                                    
+                                        Candidate Name: {{exform.value.name}} <br>
+                                        Candidate Email: {{exform.value.email}} <br>
+                                        College Name: {{collegeName}} <br>
+                                        Interview Date: {{exform.value.InterviewDate}} <br>
+                                        Interviewer Name: {{exform.value.InterviewerName}} <br>
+                                        Hackerrank Score: {{exform1.value.HackerrankScore}} <br>
+                                        Education And Training: {{exform1.value.EducationAndTraining}} <br>
+                                        Programming Knowledge: {{exform1.value.ProgrammingKnowledge}} <br>
+                                        Adaptability And Flexibility: {{exform1.value.AdaptabilityAndFlexibility}} <br>
+                                        Problem Solving: {{exform1.value.ProblemSolving}} <br>
+                                        Logical Reasoning: {{exform1.value.LogicalReasoning}} <br>
+                                        Interpersonal And CommunicationSkills: {{exform1.value.InterpersonalAndCommunicationSkills}} <br>
+                                        Recommend To Hire: {{exform1.value.RecommendToHire}} <br>
+                                        Additional Comments: {{exform1.value.AdditionalComments}} <br>
+
+
+                                        
+                                </div>
+                                
+                            </div> -->
+
+                            <div class="container">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-md-12">
+                                        <div class="card1 p-2 text-center">
+                                            <div class="row">
+                                                <div class="col-md-7 border-right no-gutters">
+                                                    <div class="py-3"><img src="https://www.seekpng.com/png/detail/41-410093_circled-user-icon-user-profile-icon-png.png"
+                                                            width="100" class="rounded-circle">
+                                                        <h4 class="text-secondary">{{exform.value.name}}</h4>
+                                                        <div class="allergy"><span>{{exform.value.email}}</span></div>
+                                                        <div class="stats">
+                                                            <table class="table table-borderless">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div class="d-flex flex-column"> <span
+                                                                                    class="text-left head">College Name:</span>
+                                                                                <span
+                                                                                    class="text-left bottom">{{collegeName}} </span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex flex-column"> <span
+                                                                                    class="text-left head">Interview Date</span>
+                                                                                <span class="text-left bottom">{{exform.value.InterviewDate}}
+                                                                                    </span>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div class="d-flex flex-column"> <span
+                                                                                    class="text-left head"> Interviewer Name</span>
+                                                                                <span class="text-left bottom">{{exform.value.InterviewerName}}</span> </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex flex-column"> <span
+                                                                                    class="text-left head">Recommend To Hire</span>
+                                                                                <span
+                                                                                    class="text-left bottom">{{exform1.value.RecommendToHire}}</span>
+                                                                            </div>
+                                                                        </td>
+                                                        
+                                                                        
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div class="d-flex flex-column"> <span
+                                                                                    class="text-left head">Hackerrank Score</span>
+                                                                                <span
+                                                                                    class="text-left bottom">{{exform1.value.HackerrankScore}}</span>
+                                                                            </div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex flex-column"> <span
+                                                                                    class="text-left head">Additional Comments</span>
+                                                                                <span
+                                                                                    class="text-left bottom">{{exform1.value.AdditionalComments}}</span>
+                                                                            </div>
+                                                                        </td>
+
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <!-- <div class="px-3"><button type="button"
+                                                                class="btn btn-primary btn-block">Send
+                                                                Message</button></div> -->
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-5 text-left">
+                                                    <div class="py-3">
+                                                        
+                                                        <div class="mt-4"> <span class="d-block head">Education And Training: {{exform1.value.EducationAndTraining}}</span> <br> </div>
+                                                        <div> <span class="d-block head">Programming Knowledge: {{exform1.value.ProgrammingKnowledge}} 
+                                                            </span>  </div>
+                                                        <div class="mt-4"> <span class="d-block head">Adaptability And Flexibility: {{exform1.value.AdaptabilityAndFlexibility}}</span>  </div>
+                                                        <div class="mt-4"> <span class="d-block head"> Problem Solving: {{exform1.value.ProblemSolving}}</span>
+                                                             </div>
+                                                        <div class="mt-4"> <span class="d-block head">Logical Reasoning: {{exform1.value.LogicalReasoning}} </span>
+                                                             </div>
+                                                        <div class="mt-4"> <span class="d-block head">Interpersonal And CommunicationSkills: {{exform1.value.InterpersonalAndCommunicationSkills}} </span>  </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <input type="button" name="next" class="next action-button"  (click)="clicksub($event)" 
+                            value="Submit" />
+                        <input type="button" name="previous" class="previous action-button-previous" (click)="back($event)" value="Previous" />
+                    </fieldset>
+                    <fieldset id="submit">
+                        <div class="form-card">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="fs-title">Finish:</h2>
+                                </div>
+                                <div class="col-5">
+                                    <h2 class="steps">Step 4 - 4</h2>
+                                </div>
+                            </div> <br><br>
+                            <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
+                            <div class="row justify-content-center">
+                                <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
+                            </div> <br><br>
+                            <div class="row justify-content-center">
+                                <div class="col-7 text-center">
+                                    <h5 class="purple-text text-center">You Have Successfully Submitted</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

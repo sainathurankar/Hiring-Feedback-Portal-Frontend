@@ -1,0 +1,128 @@
+.gradient-custom-2 {
+  /* fallback for old browsers */
+  background: #fccb90;
+
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593);
+}
+
+#right-side{
+    background-image: url("https://nz.hudson.com/wp-content/cache/bb-plugin/cache/unuasual-job-interview-01-1024x731-landscape.jpg");
+    background-color: #01a3a5; /* Used if the image is unavailable */
+  height: 725px; /* You must set a specified height */
+  background-position: bottom; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: contain;
+}
+
+#right-side p{
+    text-align: justify;
+    size: 40px;
+}
+
+.card-body p{
+    text-align: center;
+}
+
+
+
+#login-btn{
+    background: linear-gradient(to right, #105ea3, #007f9c, #01a3a5, #01a3a5);
+}
+
+.form-control {
+	height: 40px;
+	box-shadow: none;
+	color: #000000;
+}
+.form-control:focus {
+	border-color: #5cb85c;
+}
+.form-control, .btn {        
+	border-radius: 3px;
+}
+.signup-form {
+	width: 400px;
+	margin: 0 auto;
+	padding: 0 0;
+  	font-size: 15px;
+}
+.signup-form h4 {
+	color: #3a3a3a;
+	margin: 0 0 15px;
+	position: relative;
+	text-align: center;
+}
+.signup-form h4:before, .signup-form h4:after {
+	content: "";
+	height: 2px;
+	width: 30%;
+	background: #d4d4d4;
+	position: absolute;
+	top: 50%;
+	z-index: 2;
+}	
+.signup-form h4:before {
+	left: 0;
+}
+.signup-form h4:after {
+	right: 0;
+}
+.signup-form .hint-text {
+	color: rgb(0, 0, 0);
+	margin-bottom: 30px;
+	text-align: center;
+}
+.signup-form form {
+	color: rgb(0, 0, 0);
+	border-radius: 3px;
+	margin-bottom: 15px;
+	background: #f2f3f7;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	padding: 30px;
+}
+.signup-form .form-group {
+	margin-bottom: 15px;
+}
+
+.signup-form .btn {        
+	font-size: 16px;
+	font-weight: bold;		
+	min-width: 140px;
+	outline: none !important;
+}
+.signup-form .row div:first-child {
+	padding-right: 10px;
+}
+.signup-form .row div:last-child {
+	padding-left: 10px;
+}    	
+.signup-form a {
+	color: rgb(0, 0, 0);
+	text-decoration: underline;
+}
+.signup-form a:hover {
+	text-decoration: none;
+}
+.signup-form form a {
+	color: #5cb85c;
+	text-decoration: none;
+}	
+.signup-form form a:hover {
+	text-decoration: underline;
+}  
+
+@media (min-width: 768px) {
+  .gradient-form {
+    height: 100vh !important;
+  }
+}
+@media (min-width: 769px) {
+  .gradient-custom-2 {
+    border-top-right-radius: .3rem;
+    border-bottom-right-radius: .3rem;
+  }
+}

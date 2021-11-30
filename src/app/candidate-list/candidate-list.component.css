@@ -1,0 +1,35 @@
+table {
+    width: 100%; 
+    margin-top: 1em;
+    border: 1.5px solid black;
+}
+
+.table{
+  max-width: 100%;
+  background-color: #fdfdfd;
+  padding: auto;
+}
+
+.footer{
+  display: block;
+  
+}
+
+#pagination{
+  display: inline;
+  float: right;
+  cursor: pointer;
+}
+
+th{
+   
+  background-color: rgb(18, 132, 202);
+  color: white;
+  font-weight: normal; 
+  text-transform: uppercase;
+}
+
+td{
+  background-color: white;
+  color: rgb(58, 51, 51);
+}

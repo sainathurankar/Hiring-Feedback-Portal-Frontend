@@ -1,0 +1,96 @@
+<div class="table">
+  <table mat-table [dataSource]="pageOfItems" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.collegeId}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> NAME </th>
+      <td mat-cell *matCellDef="let element"> {{element.collegeName}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="tier">
+      <th mat-header-cell *matHeaderCellDef> TIER </th>
+      <td mat-cell *matCellDef="let element"> {{element.collegeTier}} </td>
+    </ng-container>
+
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef> Edit/Delete </th>
+      <td mat-cell *matCellDef="let element"><i class="fa-solid fa-pen-to-square mr-4 ml-2"
+          (click)="editClicked(element.collegeId, element.collegeName, element.collegeTier)" data-toggle="modal"
+          data-target="#exampleModal"></i> <i class="fa-solid fa-trash" (click)="remove(element.collegeId)"></i> </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table></div>
+  <div class="footer"><button type="button" id="addbtn" class="btn btn-primary" data-toggle="modal"
+    data-target="#exampleModal">ADD</button><div id="pagination" class="pagination justify-content-center">
+    <jw-pagination [pageSize]=9 [items]="dataSource" (changePage)="onChangePage($event)"></jw-pagination></div>
+  
+</div>
+
+
+
+
+
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog  modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{modalTitle}}</h5>
+        <button type="button" class="close" data-dismiss="modal" (click)="close()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="name">College Name</label>
+            <input type="text" class="form-control mb-3" id="name" aria-describedby="emailHelp"
+              [(ngModel)]='collegeName' [value]='collegeName' [ngModelOptions]="{standalone: true}">
+
+          </div>
+          <div class="form-group">
+            <label for="tier">College Tier</label>
+            <select id="tier" class="form-select" aria-label="Default select example" [(ngModel)]='collegeTier'
+            [value]='collegeTier' [ngModelOptions]="{standalone: true}">
+              <option selected>Open this select menu</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+            </select>
+            <!-- <label for="tier">College Tier</label>
+            <input min=1 max=3 type="number" id="tier" class="form-control" [(ngModel)]='collegeTier'
+              [value]='collegeTier' [ngModelOptions]="{standalone: true}"> -->
+          </div>
+
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="close()" data-dismiss="modal">Close</button>
+        <button type="button" *ngIf='addCollege' class="btn btn-primary" (click)="addCollegeClicked()" data-dismiss="modal">Save
+          changes</button>
+        <button type="button" *ngIf='!addCollege' class="btn btn-primary" (click)="update()" data-dismiss="modal" >Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
