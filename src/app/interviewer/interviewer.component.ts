@@ -89,6 +89,7 @@ export class InterviewerComponent implements OnInit {
   }
 
   clicksub(event:any) {
+    Swal.showLoading();
     this.auth
       .postEvaluation(
         this.exform.value.name,
