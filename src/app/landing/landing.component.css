@@ -10,17 +10,18 @@
 }
 
 #right-side{
-    background-image: url("https://nz.hudson.com/wp-content/cache/bb-plugin/cache/unuasual-job-interview-01-1024x731-landscape.jpg");
-    background-color: #01a3a5; /* Used if the image is unavailable */
-  height: 725px; /* You must set a specified height */
-  background-position: bottom; /* Center the image */
-  background-repeat: no-repeat; /* Do not repeat the image */
-  background-size: contain;
+	/* background-image: url("https://nz.hudson.com/wp-content/cache/bb-plugin/cache/unuasual-job-interview-01-1024x731-landscape.jpg"); */
+    background-color: #5e33bf;
+ 	height: 725px; /* You must set a specified height */
+  	background-position: bottom; /* Center the image */
+  	background-repeat: no-repeat; /* Do not repeat the image */
+  	background-size: contain;
 }
 
 #right-side p{
     text-align: justify;
-    size: 40px;
+	color: #d8ceef;
+    size: 80px;
 }
 
 .card-body p{
@@ -30,7 +31,7 @@
 
 
 #login-btn{
-    background: linear-gradient(to right, #105ea3, #007f9c, #01a3a5, #01a3a5);
+    background: linear-gradient(to right, #5e33bf, #643bc0, #643fb8, #9274d4);
 }
 
 .form-control {

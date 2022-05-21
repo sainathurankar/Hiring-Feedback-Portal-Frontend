@@ -22,6 +22,7 @@ import { CandidateListComponent } from './candidate-list/candidate-list.componen
 import { ViewUsersComponent } from './view-users/view-users.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { NgImageSliderModule } from 'ng-image-slider';
 
 
 
@@ -50,6 +51,7 @@ import { MatSelectModule } from '@angular/material/select';
     ReactiveFormsModule,
     MatAutocompleteModule,
     MatSelectModule,
+    NgImageSliderModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent],

@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { TokenStorageService } from '../services/token-storage.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import landingPageImageConfig from './config/landingPageImageConfig.json'
 
 @Component({
   selector: 'app-landing',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./landing.component.css'],
 })
 export class LandingComponent implements OnInit {
+  imageObject: Array<object> = landingPageImageConfig;
   Toast = Swal.mixin({
     toast: true,
     position: 'top-end',
