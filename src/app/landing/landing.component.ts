@@ -10,6 +10,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./landing.component.css'],
 })
 export class LandingComponent implements OnInit {
+  Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timerProgressBar: true,
+  });
   form: any = {
     username: null,
     password: null,
@@ -50,43 +56,40 @@ export class LandingComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.Toast.fire('Authenticating Please wait!');
+    Swal.showLoading();
     const { username, password } = this.form;
-
     this.authService.login(username, password).subscribe(
       (data) => {
         this.tokenStorage.saveToken(data.accessToken);
         this.tokenStorage.saveUser(data);
-        // alert();
-        this.isLoginFailed = false;
-        this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles;
-        Swal.fire({
-          position: 'center',
+        this.Toast.fire({
+          position: 'top-end',
           icon: 'success',
-          title: 'Welcome ' + this.tokenStorage.getUser().userFirstname,
+          title: 'Signed in successfully',
           showConfirmButton: false,
           timer: 1000,
         }).then((result) => {
           this.ngOnInit();
+          this.form = {};
         });
       },
       (err) => {
-        Swal.fire({
-          position: 'center',
+        this.Toast.fire({
+          position: 'top-end',
           icon: 'error',
           title: 'INVALID CREDENTIALS',
           showConfirmButton: false,
           timer: 1500,
         });
-        this.errorMessage = err.error.message;
-        this.isLoginFailed = true;
       }
     );
   }
 
   onSubmit_signup(): void {
     const { username, firstname, lastname, email, password } = this.form_signup;
-
+    Swal.showLoading();
     this.authService
       .register(username, firstname, lastname, email, password)
       .subscribe(

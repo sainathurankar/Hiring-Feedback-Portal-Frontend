@@ -14,7 +14,7 @@
                             </div>
 
                             <div class="d-flex justify-content-center ">
-                                <form *ngIf="!isLoggedIn && login_signup" name="form"
+                                <form *ngIf="login_signup" name="form"
                                     (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate class="w-50">
                                     <p>Please login to your account</p>
 
@@ -60,7 +60,7 @@
                                 </form>
 
                                 <!-- <form  name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate class="w-50"> -->
-                                <div *ngIf="!isLoggedIn && !login_signup" class="signup-form">
+                                <div *ngIf="!login_signup" class="signup-form">
                                     <form *ngIf="!isSuccessful" name="form_signup"
                                         (ngSubmit)="f_signup.form.valid && onSubmit_signup()" id="f_signup" #f_signup="ngForm"
                                         novalidate>
