@@ -1,17 +1,42 @@
-body{
-    margin: 0;
-    padding: 0;
-    /* overflow: hidden; */
-    height: 100vh;
+body {
+  margin: 0;
+  padding: 0;
+  /* overflow: hidden; */
+  height: 100vh;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Zen Antique Soft', serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Zen Antique Soft", serif;
+}
+.application-loading-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.application-loading-box {
+  width: 300px;
+  margin: 5px;
+  text-align: center;
+}
 
 @media (max-width: 768px) {
-  body{
-      overflow: visible;
+  body {
+    overflow: visible;
   }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
