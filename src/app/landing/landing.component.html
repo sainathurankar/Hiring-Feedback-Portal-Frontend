@@ -4,7 +4,7 @@
         <div class="col-xl-12">
             <div class="card rounded-3 text-black">
                 <div class="row g-0">
-                    <div class="col-lg-6">
+                    <div class="col-lg-5">
                         <div class="card-body p-md-5 mx-md-4">
 
                             <div class="text-center">
@@ -15,7 +15,7 @@
 
                             <div class="d-flex justify-content-center ">
                                 <form *ngIf="login_signup" name="form"
-                                    (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate class="w-50">
+                                    (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate class="w-70">
                                     <p>Please login to your account</p>
 
                                     <div class="form-outline mb-4">
@@ -153,15 +153,18 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 d-flex align-bottom" id="right-side">
+                    <div class="col-lg-7 d-flex align-bottom" id="right-side">
                         <div class="text-white px-3 py-4 p-md-5 mx-md-4">
                             <h3 class="mb-4">What is an Hiring Feedback Portal?</h3>
-                            <p class="small mb-0">Hiring feedback forms are used to standardize the way in which a
+                            <p class="mb-1">Hiring feedback forms are used to standardize the way in which a
                                 hiring team evaluates a candidate. Interview feedback helps keep interviewers objective,
                                 and provides them with guidelines on what are important aspects of said role that need
                                 to be evaluated. Lastly, interview feedback forms allow for faster documentation, easier
                                 training of hiring managers, and reduced unconscious bias in the hiring process.</p>
+                                <br>
+                                <ng-image-slider [showArrow]="false" [infinite]="true" [autoSlide]="{interval: 2, stopOnHover: true}" [imagePopup]="true" [manageImageRatio]="false" [images]="imageObject" [imageSize]="{width: 732, height: 404, space: 0}" #nav></ng-image-slider>
                         </div>
+                        
                     </div>
                 </div>
             </div>
