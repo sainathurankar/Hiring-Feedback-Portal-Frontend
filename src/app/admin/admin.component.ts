@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TokenStorageService } from '../services/token-storage.service';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-admin',
@@ -21,7 +22,8 @@ export class AdminComponent implements OnInit {
   constructor(
     private tokenService: TokenStorageService,
     private route: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private localStorage: LocalStorageService
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +42,7 @@ export class AdminComponent implements OnInit {
       timer: 1000,
     }).then((data) => {
       this.route.navigate(['/home']);
+      this.localStorage.clear();
     });
   }
 
