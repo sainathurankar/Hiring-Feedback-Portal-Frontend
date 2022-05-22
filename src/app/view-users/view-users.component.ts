@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { data } from 'jquery';
 import Swal from 'sweetalert2';
 import { AuthService } from '../services/auth.service';
+import { LocalStorageService } from '../services/local-storage.service';
 import { TokenStorageService } from '../services/token-storage.service';
 
 @Component({
@@ -14,19 +16,27 @@ export class ViewUsersComponent implements OnInit {
   pageOfItems!: Array<any>;
   role: string = '';
   roleUser!: string;
+  KEY: string = 'users';
 
   constructor(
     private authService: AuthService,
-    private tokenService: TokenStorageService
+    private tokenService: TokenStorageService,
+    private localStorage: LocalStorageService
   ) {}
 
   ngOnInit(): void {
-    this.authService.getUsers().subscribe((data) => {
-      this.dataSource = data.filter(
-        (user: { roles: { id: number }[] }) => user.roles[0].id != 3
-      );
-      console.log(this.dataSource);
-    });
+    const data: any | null = this.localStorage.getData(this.KEY);
+    if (data) {
+      this.dataSource = data;
+    } else {
+      this.authService.getUsers().subscribe((data) => {
+        this.dataSource = data.filter(
+          (user: { roles: { id: number }[] }) => user.roles[0].id != 3
+        );
+        this.localStorage.saveData(this.KEY, this.dataSource);
+        console.log(this.dataSource);
+      });
+    }
 
     this.roleUser = this.tokenService.getUser().roles[0];
     if (this.roleUser == 'ROLE_SUPERADMIN') {
@@ -66,10 +76,13 @@ export class ViewUsersComponent implements OnInit {
     if (this.role != 'Select Role' && this.role != '') {
       if (this.role == 'ROLE_ADMIN') element.roles[0].id = 2;
       else element.roles[0].id = 1;
-      element.roles[0].name = this.role;
       this.authService.updateRole(element).subscribe((data) => {
         console.log('ROle updated to ' + this.role);
-      });
+      },(err)=>{
+        this.updateLocalStorage();
+        this.ngOnInit();
+      }
+      );
     }
   }
 
@@ -87,10 +100,20 @@ export class ViewUsersComponent implements OnInit {
         });
         Swal.fire('User Deleted!', '', 'success').then((data) => {
           this.ngOnInit();
+          this.updateLocalStorage();
         });
       } else if (result.isDenied) {
         Swal.fire('Changes are not saved', '', 'info');
       }
+    });
+  }
+
+  updateLocalStorage() {
+    this.authService.getUsers().subscribe((data) => {
+      this.dataSource = data.filter(
+        (user: { roles: { id: number }[] }) => user.roles[0].id != 3
+      );
+      this.localStorage.saveData(this.KEY, this.dataSource);
     });
   }
 }
