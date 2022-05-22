@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
   selector: 'app-candidate-list',
@@ -15,13 +16,21 @@ export class CandidateListComponent implements OnInit {
   ];
   dataSource: any = [];
   pageOfItems!: Array<any>;
-
-  constructor(private authService: AuthService) {}
+  KEY: string = 'candidates';
+  constructor(
+    private authService: AuthService,
+    private localStorage: LocalStorageService
+  ) {}
 
   ngOnInit(): void {
-    this.authService.getCandidates().subscribe((data) => {
-      this.dataSource = data;
-    });
+    const data: any | null = this.localStorage.getData(this.KEY);
+    if (data){ this.dataSource = data;}
+    else {
+      this.authService.getCandidates().subscribe((data) => {
+        this.dataSource = data;
+        this.localStorage.saveData(this.KEY,data);
+      });
+    }
   }
 
   onChangePage(pageOfItems: Array<any>) {
