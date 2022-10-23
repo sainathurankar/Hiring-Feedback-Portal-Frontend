@@ -111,9 +111,23 @@ export class InterviewerComponent implements OnInit {
         (data) => {
           this.nextq(event);
           console.log(data);
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Success!',
+            showConfirmButton: true,
+          }).then((result) => {
+            window.location.reload();
+          });
         },
         (err) => {
           console.log('error');
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: err.error.message,
+            showConfirmButton: true,
+          });
         }
       );
     console.log(this.exform.value);
